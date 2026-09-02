@@ -25,24 +25,23 @@
   </div>
 
   <script>
-    function init() {
-      const params = new URLSearchParams(window.location.search);
-      const appContainer = document.getElementById('app-container');
-      const placeholder = document.getElementById('placeholder');
+function init() {
+  const params = new URLSearchParams(window.location.search);
+  const appContainer = document.getElementById('app-container');
+  const placeholder = document.getElementById('placeholder');
 
-      if (params.has('page')) {
-        // AUTO-LOAD APP
-        const scriptBase = "https://script.google.com/macros/s/AKfycbwzv-S1knySASR2yJkoHuuN7OuzGnB9fLuiYDCczu4A_VFcC2HAAI20VPUhVRM9K-wg/exec";
-        params.set('gw', 'true');
-        const finalUrl = scriptBase + "?" + params.toString();
-        
-        appContainer.style.display = 'block';
-        appContainer.innerHTML = `<iframe src="${finalUrl}" allow="geolocation; microphone; camera"></iframe>`;
-      } else {
-        // SHOW WEBSITE PLACEHOLDER
-        placeholder.style.display = 'flex';
-      }
-    }
+  if (params.has('page')) {
+    const scriptBase = "https://script.google.com/macros/s/AKfycbwzv-S1knySASR2yJkoHuuN7OuzGnB9fLuiYDCczu4A_VFcC2HAAI20VPUhVRM9K-wg/exec";
+    
+    // params.toString() includes 'page', 'id', 'dur', etc.
+    const finalUrl = scriptBase + "?" + params.toString() + "&gw=true";
+    
+    appContainer.style.display = 'block';
+    appContainer.innerHTML = `<iframe src="${finalUrl}" allow="geolocation; microphone; camera"></iframe>`;
+  } else {
+    placeholder.style.display = 'flex';
+  }
+}
   </script>
 </body>
 </html>
